@@ -1,4 +1,5 @@
-import { Search, Menu, Home } from "lucide-react";
+import { useState } from "react";
+import { Search, Menu, X } from "lucide-react";
 
 interface NavbarProps {
   searchQuery: string;
@@ -7,16 +8,20 @@ interface NavbarProps {
 }
 
 export default function Navbar({ searchQuery, onSearchChange, onNavigate }: NavbarProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  function go(page: string) {
+    setMenuOpen(false);
+    onNavigate(page);
+  }
+
   return (
     <nav className="navbar">
-      <button
-        className="navbar__logo"
-        onClick={() => onNavigate("home")}
-        style={{ background: "none", border: "none", cursor: "pointer" }}
-      >
+      <button className="navbar__logo" onClick={() => go("home")}>
         🏠 CariKost
       </button>
 
+      {/* Desktop search */}
       <div className="navbar__search">
         <Search size={16} color="#999" />
         <input
@@ -28,6 +33,7 @@ export default function Navbar({ searchQuery, onSearchChange, onNavigate }: Navb
         />
       </div>
 
+      {/* Desktop actions */}
       <div className="navbar__actions">
         <button
           className="navbar__btn navbar__btn--outline"
@@ -47,24 +53,58 @@ export default function Navbar({ searchQuery, onSearchChange, onNavigate }: Navb
         >
           Daftar
         </button>
-        <button
-          className="navbar__hamburger"
-          aria-label="Menu"
-          onClick={() => onNavigate("about")}
-        >
-          <Menu size={22} />
-        </button>
       </div>
 
-      {/* Mobile-only bottom strip: link row */}
+      {/* Mobile hamburger */}
       <button
         className="navbar__hamburger"
-        style={{ marginLeft: 0 }}
-        aria-label="Beranda"
-        onClick={() => onNavigate("home")}
+        aria-label={menuOpen ? "Tutup menu" : "Buka menu"}
+        aria-expanded={menuOpen}
+        onClick={() => setMenuOpen((o) => !o)}
       >
-        <Home size={20} />
+        {menuOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
+
+      {/* Mobile dropdown panel */}
+      {menuOpen && (
+        <div className="navbar__mobile-menu">
+          <div className="navbar__mobile-search">
+            <Search size={16} color="#999" />
+            <input
+              type="text"
+              placeholder="Cari nama kost, area, atau tipe..."
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
+              aria-label="Cari kost"
+            />
+          </div>
+
+          <button className="navbar__mobile-link" onClick={() => go("home")}>
+            🏠 Beranda
+          </button>
+          <button className="navbar__mobile-link" onClick={() => go("daftarkan-kost")}>
+            ➕ Pasang Kost
+          </button>
+          <button className="navbar__mobile-link" onClick={() => go("about")}>
+            ℹ️ Tentang Kami
+          </button>
+
+          <div className="navbar__mobile-actions">
+            <button
+              className="navbar__btn navbar__btn--outline"
+              onClick={() => { setMenuOpen(false); alert("Fitur login segera hadir!"); }}
+            >
+              Masuk
+            </button>
+            <button
+              className="navbar__btn navbar__btn--solid"
+              onClick={() => { setMenuOpen(false); alert("Fitur daftar segera hadir!"); }}
+            >
+              Daftar
+            </button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

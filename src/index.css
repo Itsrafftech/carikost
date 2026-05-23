@@ -106,7 +106,60 @@ body {
   cursor: pointer;
   padding: 4px;
   color: #222;
+  margin-left: auto;
 }
+.navbar__mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-bottom: 1px solid #ebebeb;
+  box-shadow: 0 8px 20px rgba(0,0,0,.1);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 49;
+}
+.navbar__mobile-search {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 40px;
+  padding: 0 16px;
+  height: 46px;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.navbar__mobile-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: .9rem;
+  background: transparent;
+}
+.navbar__mobile-link {
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 12px 8px;
+  font-size: .95rem;
+  font-weight: 600;
+  color: #222;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background var(--transition-base);
+}
+.navbar__mobile-link:hover { background: #f5f5f5; }
+.navbar__mobile-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #ebebeb;
+}
+.navbar__mobile-actions .navbar__btn { flex: 1; }
 
 /* ── Filter Bar ──────────────────────────────────────────────── */
 .filter-bar {
@@ -990,7 +1043,9 @@ body {
 }
 @media (max-width: 768px) {
   .navbar { padding: 0 16px; height: 64px; }
+  .navbar__logo { font-size: 1.25rem; }
   .navbar__search { display: none; }
+  .navbar__actions { display: none; }
   .navbar__hamburger { display: flex; }
   .hero__title { font-size: 1.5rem; }
   .hero { padding: 32px 16px 28px; }
