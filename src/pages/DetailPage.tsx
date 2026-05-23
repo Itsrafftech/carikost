@@ -27,7 +27,7 @@ export default function DetailPage({ kost, onBack }: DetailPageProps) {
     yearly: kost.yearlyPrice,
   };
 
-  const waUrl = buildWaUrl(kost.whatsappNumber, kost.name);
+  const waUrl = buildWaUrl(kost.name);
 
   const photos = kost.photos.slice(0, 5);
   // Pad to 5 if fewer

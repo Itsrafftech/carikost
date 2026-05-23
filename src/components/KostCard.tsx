@@ -27,7 +27,7 @@ export default function KostCard({ kost, onClick }: KostCardProps) {
 
   function handleWa(e: React.MouseEvent) {
     e.stopPropagation();
-    window.open(buildWaUrl(kost.whatsappNumber, kost.name), "_blank", "noopener");
+    window.open(buildWaUrl(kost.name), "_blank", "noopener");
   }
 
   const facTags = topFacs(kost, 3);
